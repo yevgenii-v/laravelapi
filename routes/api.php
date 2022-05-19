@@ -2,7 +2,11 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\TicketStaffController;
+use App\Http\Controllers\Api\TicketStaffMessagesController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\TicketUserController;
+use App\Http\Controllers\Api\TicketUserMessagesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,15 +25,30 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+//Control Panel (Staff: Admin & Support only)
+Route::group(['prefix' => 'cp', 'as' => 'cp.', 'middleware' => ['auth:sanctum', 'isStaff']], function () {
+    Route::apiResource('users', UserController::class)
+        ->only(['index', 'show', 'update', 'destroy']);
+    Route::apiResource('tickets', TicketStaffController::class)
+        ->only(['index', 'store', 'show', 'update', 'delete']);
+    Route::apiResource('tickets.messages', TicketStaffMessagesController::class)
+        ->only(['store', 'update', 'destroy']);
+
+});
+
 //Protected Routes
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::apiResource('users', UserController::class)
-        ->only(['index', 'show', 'update', 'destroy']);
     Route::get('/profile', [ProfileController::class, 'index']);
     Route::apiResource('profile', ProfileController::class)
         ->only(['update', 'destroy'])
         ->middleware('profile');
+    Route::group(['middleware' => 'checkUserRole'], function () {
+        Route::apiResource('tickets', TicketUserController::class)
+            ->only(['index', 'store', 'show', 'update']);
+        Route::apiResource('tickets.messages', TicketUserMessagesController::class)
+            ->only(['store']);
+    });
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

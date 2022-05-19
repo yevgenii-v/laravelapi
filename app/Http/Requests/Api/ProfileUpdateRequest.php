@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests\Api;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileUpdateRequest extends FormRequest

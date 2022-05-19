@@ -31,11 +31,17 @@ class UsersTableSeeder extends Seeder
             'password'  => 'adminsecret',
         ]);
 
-        $support = User::create([
-            'name'      => 'Support',
-            'email'     => 'support@laravel.loc',
-            'password'  => 'supportsecret',
-        ]);
+        $admin->roles()->attach($adminRole);
+
+        for ($i=1; $i<=4; $i++) {
+            $support = User::create([
+                'name'      => 'Support0'.$i,
+                'email'     => 'support0'.$i.'@laravel.loc',
+                'password'  => 'support0'.$i.'secret',
+            ]);
+
+            $support->roles()->sync($supportRole);
+        }
 
         $user = User::create([
             'name'      => 'User',
@@ -43,8 +49,6 @@ class UsersTableSeeder extends Seeder
             'password'  => 'usersecret',
         ]);
 
-        $admin->roles()->attach($adminRole);
-        $support->roles()->attach($supportRole);
         $user->roles()->attach($userRole);
     }
 }

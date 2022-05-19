@@ -49,7 +49,6 @@ class AuthController extends Controller
         if (auth('sanctum')->check()) {
             return response(['message'   => 'You are logged-in already.'], 403);
         }
-
         $fields = $request->validated();
 
         $user = User::where('email', $fields['email'])->first();

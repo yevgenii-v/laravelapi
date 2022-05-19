@@ -10,7 +10,6 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
 
 class ProfileController extends Controller
 {
@@ -45,6 +44,11 @@ class ProfileController extends Controller
 
     public function destroy(User $profile)
     {
+        if ($profile->id === 1)
+        {
+            return response(['message' => 'Access denied'], 403);
+        }
+
         $profile->tokens()->delete();
         $profile->delete();
 

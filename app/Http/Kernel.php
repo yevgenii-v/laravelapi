@@ -3,6 +3,8 @@
 namespace App\Http;
 
 use App\Http\Middleware\CheckProfile;
+use App\Http\Middleware\CheckUserRole;
+use App\Http\Middleware\IsAdminOrSupport;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -65,5 +67,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'profile'   => CheckProfile::class,
+        'isStaff'   => IsAdminOrSupport::class,
+        'checkUserRole' => CheckUserRole::class,
     ];
 }
