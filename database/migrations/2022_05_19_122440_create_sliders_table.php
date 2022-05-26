@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTicketMessagesTable extends Migration
+class CreateSlidersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateTicketMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_messages', function (Blueprint $table) {
+        Schema::create('sliders', function (Blueprint $table) {
             $table->id();
-            $table->text('answer');
-
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('ticket_id')->constrained()->cascadeOnDelete();
-
+            $table->string('name');
+            $table->boolean('is_active')->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateTicketMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_messages');
+        Schema::dropIfExists('sliders');
     }
 }

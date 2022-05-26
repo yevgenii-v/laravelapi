@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TicketUserCreateRequest extends FormRequest
+class SliderUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class TicketUserCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'     => ['required', 'string'],
-            'message'   => ['required', 'string'],
+            'name' => ['string'],
+            'is_active' => ['boolean'],
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\TicketStaffCreateRequest;
+use App\Http\Requests\Api\TicketStaffStoreRequest;
 use App\Http\Requests\Api\TicketStaffUpdateRequest;
 use App\Http\Resources\TicketStaffDialogResource;
 use App\Http\Resources\TicketResource;
@@ -45,10 +45,10 @@ class TicketStaffController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param TicketStaffCreateRequest $request
+     * @param TicketStaffStoreRequest $request
      * @return Application|ResponseFactory|Response
      */
-    public function store(TicketStaffCreateRequest $request)
+    public function store(TicketStaffStoreRequest $request)
     {
         $validatedData = $request->safe();
 

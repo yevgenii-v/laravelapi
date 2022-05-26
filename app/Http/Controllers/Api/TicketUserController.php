@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\TicketUserCreateRequest;
+use App\Http\Requests\Api\TicketUserStoreRequest;
 use App\Http\Resources\TicketResource;
 use App\Http\Resources\TicketUserDialogResource;
 use App\Models\Ticket;
@@ -29,10 +29,10 @@ class TicketUserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param TicketUserCreateRequest $request
+     * @param TicketUserStoreRequest $request
      * @return Response
      */
-    public function store(TicketUserCreateRequest $request): Response
+    public function store(TicketUserStoreRequest $request): Response
     {
         $validatedData = $request->safe();
 
