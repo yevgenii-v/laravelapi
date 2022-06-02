@@ -9,7 +9,7 @@ use App\Models\TicketMessage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class TicketStaffMessagesController extends Controller
+class TicketStaffMessageController extends Controller
 {
     public function __construct()
     {

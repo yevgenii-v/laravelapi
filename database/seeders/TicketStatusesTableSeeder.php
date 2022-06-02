@@ -6,7 +6,7 @@ use App\Models\TicketStatus;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 
-class TicketStatusTableSeeder extends Seeder
+class TicketStatusesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

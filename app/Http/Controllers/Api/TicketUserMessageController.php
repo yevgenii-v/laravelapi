@@ -10,7 +10,7 @@ use App\Models\TicketMessage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class TicketUserMessagesController extends Controller
+class TicketUserMessageController extends Controller
 {
     /**
      * Store a newly created resource in storage.
