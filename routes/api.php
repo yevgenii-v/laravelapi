@@ -13,7 +13,6 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\TicketUserController;
 use App\Http\Controllers\Api\TicketUserMessageController;
 use App\Http\Middleware\IsAdmin;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

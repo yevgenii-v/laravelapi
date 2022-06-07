@@ -29,7 +29,9 @@ class ProductController extends Controller
     {
         return ProductResource::collection(Product::withAvg('reviews', 'rating')
             ->orderBy('reviews_avg_rating', 'desc')->paginate(25))
-            ->additional(['top_latest' => $this->topLatest]);
+            ->additional([
+                'top_latest'    => $this->topLatest,
+            ]);
     }
 
     /**
@@ -41,7 +43,15 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request, Category $category): Response
     {
-        Product::create($request->validated());
+        $validatedData = $request->validated();
+
+        $newProduct = Product::create([
+            'name'        => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'category_id' => $category->id,
+        ]);
+
+        $newProduct->related()->sync($validatedData['related_id']);
 
         return response(['message' => 'Product has been posted.']);
     }
@@ -61,7 +71,10 @@ class ProductController extends Controller
         }
 
         return ProductResource::make($product)
-            ->additional(['top_latest' => $this->topLatest]);
+            ->additional([
+                'top_latest'        => $this->topLatest,
+                'related_products'  => ProductResource::collection($product->related),
+            ]);
     }
 
     /**
@@ -74,12 +87,20 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Category $category, Product $product): Response
     {
+        $validatedData = $request->validated();
+
         if ($product->category_id !== $category->id)
         {
             return response(['message' => 'Not found'], 404);
         }
 
-        $product->fill($request->validated())->save();
+        $product->fill([
+            'name'        => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'category_id' => $validatedData['category_id'],
+        ])->save();
+
+        $product->related()->sync($validatedData['related_id']);
 
         return response(['message' => 'Product has been updated.']);
     }

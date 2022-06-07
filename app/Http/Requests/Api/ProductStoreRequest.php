@@ -26,7 +26,8 @@ class ProductStoreRequest extends FormRequest
         return [
             'name'          => ['required', 'string'],
             'description'   => ['required', 'string'],
-            'category_id'   => ['required', 'exists:categories,id'],
+            'category_id'   => ['exists:categories,id'],
+            'related_id'    => ['array', 'exists:products,id'],
         ];
     }
 }

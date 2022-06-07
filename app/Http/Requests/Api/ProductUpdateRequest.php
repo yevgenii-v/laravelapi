@@ -27,6 +27,7 @@ class ProductUpdateRequest extends FormRequest
             'name'          => ['string'],
             'description'   => ['string'],
             'category_id'   => ['exists:categories,id'],
+            'related_id'    => ['array', 'exists:products,id'],
         ];
     }
 }
